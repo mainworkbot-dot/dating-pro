@@ -36,6 +36,7 @@
             line-height: 1.6;
             color: #333;
             background-color: #fff;
+            scroll-behavior: smooth;
         }
 
         a {
@@ -994,12 +995,12 @@
             <a href="#" class="logo"><i class="fas fa-heart"></i>Love<span>Connect</span>Pro</a>
             <nav id="main-nav">
                 <ul>
-                    <li><a href="#" class="nav-link active">Home</a></li>
-                    <li><a href="#" class="nav-link">Dating Tips</a></li>
-                    <li><a href="#" class="nav-link">Site Reviews</a></li>
-                    <li><a href="#" class="nav-link">Success Stories</a></li>
-                    <li><a href="#" class="nav-link">Dating Guides</a></li>
-                    <li><a href="#" class="nav-link">About</a></li>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#dating-tips" class="nav-link">Dating Tips</a></li>
+                    <li><a href="#site-reviews" class="nav-link">Site Reviews</a></li>
+                    <li><a href="#success-stories" class="nav-link">Success Stories</a></li>
+                    <li><a href="#dating-guides" class="nav-link">Dating Guides</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
                 </ul>
             </nav>
             <div class="mobile-menu" id="mobile-menu">
@@ -1009,13 +1010,13 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="container hero-content">
             <h1>Find Meaningful Connections With Expert Dating Advice</h1>
             <p>Get proven strategies, dating site reviews, and relationship guidance to help you navigate modern dating and find lasting love.</p>
             <div class="hero-buttons">
                 <a href="https://www.match.com" target="_blank" class="btn btn-large" id="cta-main"><i class="fas fa-arrow-right"></i> Discover Top Dating Sites</a>
-                <a href="#" class="btn btn-secondary btn-large"><i class="fas fa-book"></i> Read Our Dating Guide</a>
+                <a href="#dating-guides" class="btn btn-secondary btn-large"><i class="fas fa-book"></i> Read Our Dating Guide</a>
             </div>
         </div>
     </section>
@@ -1048,7 +1049,7 @@
     </div>
 
     <!-- Featured Posts Section -->
-    <section class="section">
+    <section class="section" id="dating-tips">
         <div class="container">
             <div class="section-title">
                 <h2>Latest Dating Advice</h2>
@@ -1280,7 +1281,7 @@
     </section>
 
     <!-- Dating Site Reviews -->
-    <section class="section reviews">
+    <section class="section reviews" id="site-reviews">
         <div class="container">
             <div class="section-title">
                 <h2>Top Dating Site Reviews</h2>
@@ -1441,7 +1442,7 @@
     </section>
 
     <!-- Success Stories -->
-    <section class="section success-stories">
+    <section class="section success-stories" id="success-stories">
         <div class="container">
             <div class="section-title">
                 <h2>Success Stories</h2>
@@ -1489,7 +1490,7 @@
     </section>
 
     <!-- Quiz Section -->
-    <section class="section quiz">
+    <section class="section quiz" id="dating-guides">
         <div class="container quiz-container">
             <div class="section-title">
                 <h2>Find Your Perfect Dating Site</h2>
@@ -1569,7 +1570,7 @@
     </section>
 
     <!-- Newsletter Section -->
-    <section class="section newsletter">
+    <section class="section newsletter" id="about">
         <div class="container">
             <div class="section-title">
                 <h2>Stay Updated</h2>
@@ -1602,11 +1603,11 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Dating Tips</a></li>
-                        <li><a href="#">Site Reviews</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#dating-tips">Dating Tips</a></li>
+                        <li><a href="#site-reviews">Site Reviews</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
 
@@ -1614,11 +1615,11 @@
                 <div class="footer-column">
                     <h3>Categories</h3>
                     <ul>
-                        <li><a href="#">First Dates</a></li>
-                        <li><a href="#">Online Dating</a></li>
-                        <li><a href="#">Communication</a></li>
-                        <li><a href="#">Relationship Advice</a></li>
-                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#dating-tips">First Dates</a></li>
+                        <li><a href="#dating-tips">Online Dating</a></li>
+                        <li><a href="#dating-tips">Communication</a></li>
+                        <li><a href="#dating-tips">Relationship Advice</a></li>
+                        <li><a href="#success-stories">Success Stories</a></li>
                     </ul>
                 </div>
 
@@ -1649,6 +1650,61 @@
         document.getElementById('mobile-menu').addEventListener('click', function() {
             const nav = document.getElementById('main-nav');
             nav.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.getElementById('main-nav').classList.remove('active');
+                    
+                    // Scroll to target
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for footer links
+        document.querySelectorAll('.footer-column a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Only handle internal links (starting with #)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetId = href;
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active nav link
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        document.querySelector(`nav a[href="${targetId}"]`).classList.add('active');
+                    }
+                }
+            });
         });
 
         // Expandable article content
@@ -1840,13 +1896,6 @@
             
             // Track subscription (in a real implementation)
             console.log(`Newsletter subscription: ${email}`);
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('main-nav').classList.remove('active');
-            });
         });
     </script>
 </body>
